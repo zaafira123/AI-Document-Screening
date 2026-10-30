@@ -1,5 +1,5 @@
 # AI-Based Fake Identity & Document Screening System (prototype)
-Seva Innovation Challenge 2026. An explainable add-on layer for existing airport scanners and databases.
+An explainable add-on layer for existing airport scanners and databases.
 The officer always makes the final decision; the system never auto-rejects. **All data is fictional specimen data (state "Utopia", UTO).**
 
 ## Run on Windows
