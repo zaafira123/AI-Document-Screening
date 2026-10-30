@@ -1,0 +1,502 @@
+{
+ "reference_date": "2026-10-18",
+ "samples": [
+  {
+   "id": "genuine_passport",
+   "title": "Genuine passport - Utopia",
+   "group": "genuine",
+   "description": "Clean specimen passport, live face matches.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "genuine_passport/passport.jpg"
+    }
+   ],
+   "live": "genuine_passport/live.jpg",
+   "expect": {
+    "levels": [
+     "LOW"
+    ],
+    "codes": []
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "genuine_passport_b",
+   "title": "Genuine passport - second traveller",
+   "group": "genuine",
+   "description": "Clean specimen passport.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "genuine_passport_b/passport.jpg"
+    }
+   ],
+   "live": "genuine_passport_b/live.jpg",
+   "expect": {
+    "levels": [
+     "LOW"
+    ],
+    "codes": []
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "genuine_visa_pair",
+   "title": "Genuine passport + visa page",
+   "group": "genuine",
+   "description": "Visa consistent with passport (number, name, DOB, validity).",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "genuine_visa_pair/passport.jpg"
+    },
+    {
+     "role": "visa",
+     "file": "genuine_visa_pair/visa.jpg"
+    }
+   ],
+   "live": "genuine_visa_pair/live.jpg",
+   "expect": {
+    "levels": [
+     "LOW"
+    ],
+    "codes": []
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "genuine_id_card",
+   "title": "Genuine national ID card",
+   "group": "genuine",
+   "description": "TD1 card with MRZ.",
+   "docs": [
+    {
+     "role": "id_card",
+     "file": "genuine_id_card/id_card.jpg"
+    }
+   ],
+   "live": "genuine_id_card/live.jpg",
+   "expect": {
+    "levels": [
+     "LOW"
+    ],
+    "codes": []
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "genuine_licence",
+   "title": "Genuine driving licence",
+   "group": "genuine",
+   "description": "Licence has no MRZ; validated from visual fields only.",
+   "docs": [
+    {
+     "role": "driving_licence",
+     "file": "genuine_licence/licence.jpg"
+    }
+   ],
+   "live": "genuine_licence/live.jpg",
+   "expect": {
+    "levels": [
+     "LOW",
+     "MEDIUM"
+    ],
+    "codes": []
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "genuine_permit",
+   "title": "Genuine work permit",
+   "group": "genuine",
+   "description": "TD1 permit with MRZ.",
+   "docs": [
+    {
+     "role": "permit",
+     "file": "genuine_permit/permit.jpg"
+    }
+   ],
+   "live": "genuine_permit/live.jpg",
+   "expect": {
+    "levels": [
+     "LOW"
+    ],
+    "codes": []
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_dob_viz",
+   "title": "Date of birth edited (visual zone)",
+   "group": "tampered",
+   "description": "DOB retyped in a different font; MRZ still carries the original date.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_dob_viz/passport.jpg"
+    }
+   ],
+   "live": "tamper_dob_viz/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "VAL_MRZ_VIZ_DOB",
+     "TMP_"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_dob_mrz",
+   "title": "MRZ edited, check digit stale",
+   "group": "tampered",
+   "description": "Birth date in the MRZ changed without recomputing the ICAO check digit.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_dob_mrz/passport.jpg"
+    }
+   ],
+   "live": "tamper_dob_mrz/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "MRZ_CHECK"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_photo_swap",
+   "title": "Holder photo replaced",
+   "group": "tampered",
+   "description": "Portrait swapped for another person; the live traveller is the original holder.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_photo_swap/passport.jpg"
+    }
+   ],
+   "live": "tamper_photo_swap/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "FACE_MISMATCH"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "expired_passport",
+   "title": "Expired passport",
+   "group": "risky",
+   "description": "Genuine-looking passport that expired 200 days ago.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "expired_passport/passport.jpg"
+    }
+   ],
+   "live": "expired_passport/live.jpg",
+   "expect": {
+    "levels": [
+     "MEDIUM",
+     "HIGH"
+    ],
+    "codes": [
+     "VAL_EXPIRED"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_editor_meta",
+   "title": "Edited in image software (metadata)",
+   "group": "tampered",
+   "description": "Pixels look normal but the file was saved by an image editor after capture.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_editor_meta/passport.jpg"
+    }
+   ],
+   "live": "tamper_editor_meta/live.jpg",
+   "expect": {
+    "levels": [
+     "MEDIUM",
+     "HIGH"
+    ],
+    "codes": [
+     "META_EDITOR"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_stamp_copy",
+   "title": "Entry stamp duplicated",
+   "group": "tampered",
+   "description": "A genuine stamp cloned to a second position.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_stamp_copy/passport.jpg"
+    },
+    {
+     "role": "visa",
+     "file": "tamper_stamp_copy/visa.jpg"
+    }
+   ],
+   "live": "tamper_stamp_copy/live.jpg",
+   "expect": {
+    "levels": [
+     "MEDIUM",
+     "HIGH"
+    ],
+    "codes": [
+     "STP_COPY_MOVE"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_stamp_digital",
+   "title": "Digitally drawn stamp",
+   "group": "tampered",
+   "description": "A crisp vector-like stamp added without ink texture.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_stamp_digital/passport.jpg"
+    },
+    {
+     "role": "visa",
+     "file": "tamper_stamp_digital/visa.jpg"
+    }
+   ],
+   "live": "tamper_stamp_digital/live.jpg",
+   "expect": {
+    "levels": [
+     "MEDIUM",
+     "HIGH"
+    ],
+    "codes": [
+     "STP_"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_visa_mismatch",
+   "title": "Visa issued for a different passport",
+   "group": "tampered",
+   "description": "Visa references passport number UT481917 but the passport is UT482917.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_visa_mismatch/passport.jpg"
+    },
+    {
+     "role": "visa",
+     "file": "tamper_visa_mismatch/visa.jpg"
+    }
+   ],
+   "live": "tamper_visa_mismatch/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "XC_NUMBER"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_name_edit",
+   "title": "Surname edited on ID card",
+   "group": "tampered",
+   "description": "Name retyped; MRZ carries the original spelling.",
+   "docs": [
+    {
+     "role": "id_card",
+     "file": "tamper_name_edit/id_card.jpg"
+    }
+   ],
+   "live": "tamper_name_edit/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "VAL_MRZ_VIZ_SURNAME"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "impostor_live",
+   "title": "Impostor with genuine passport",
+   "group": "risky",
+   "description": "The document is genuine, the traveller is not the holder.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "impostor_live/passport.jpg"
+    }
+   ],
+   "live": "impostor_live/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "FACE_MISMATCH"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "alias_identity",
+   "title": "Same face, different identity",
+   "group": "risky",
+   "description": "Valid-looking ID card in another name whose photo matches a person screened earlier.",
+   "docs": [
+    {
+     "role": "id_card",
+     "file": "alias_identity/id_card.jpg"
+    }
+   ],
+   "live": "alias_identity/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "ID_SAME_FACE"
+    ]
+   },
+   "requires": [
+    "genuine_passport"
+   ],
+   "tags": []
+  },
+  {
+   "id": "watchlist_person",
+   "title": "Name and birth date on a SIMULATED watchlist",
+   "group": "risky",
+   "description": "Traveller whose name (spelling variant) and DOB match a simulated alert entry.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "watchlist_person/passport.jpg"
+    }
+   ],
+   "live": "watchlist_person/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "WL_PERSON"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "stolen_document",
+   "title": "Document number reported stolen (SIMULATED)",
+   "group": "risky",
+   "description": "Passport number appears in the simulated lost/stolen registry.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "stolen_document/passport.jpg"
+    }
+   ],
+   "live": "stolen_document/live.jpg",
+   "expect": {
+    "levels": [
+     "HIGH"
+    ],
+    "codes": [
+     "WL_DOCUMENT"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "poor_quality",
+   "title": "Poor capture (blur, shadow, glare)",
+   "group": "risky",
+   "description": "Image quality too low for reliable reading - re-scan.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "poor_quality/passport.jpg"
+    }
+   ],
+   "live": "poor_quality/live.jpg",
+   "expect": {
+    "levels": [
+     "MEDIUM",
+     "HIGH"
+    ],
+    "codes": [
+     "Q_"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  },
+  {
+   "id": "tamper_issue_future",
+   "title": "Issue date set in the future",
+   "group": "tampered",
+   "description": "Date of issue retyped to a date after today.",
+   "docs": [
+    {
+     "role": "passport",
+     "file": "tamper_issue_future/passport.jpg"
+    }
+   ],
+   "live": "tamper_issue_future/live.jpg",
+   "expect": {
+    "levels": [
+     "MEDIUM",
+     "HIGH"
+    ],
+    "codes": [
+     "VAL_ISSUE_FUTURE"
+    ]
+   },
+   "requires": [],
+   "tags": []
+  }
+ ]
+}

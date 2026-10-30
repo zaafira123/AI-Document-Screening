@@ -1,0 +1,10 @@
+{
+  "_comment": "Risk rules. Points per finding severity, per-module caps, level thresholds. Edit from the Rules page (supervisor) or here.",
+  "points": {"info": 0, "low": 4, "medium": 12, "high": 28, "critical": 55},
+  "caps": {"quality": 10, "validation": 50, "crosscheck": 46, "tamper": 50, "metadata": 20, "stamps": 30, "face": 55, "identity": 55, "watchlist": 70},
+  "thresholds": {"medium": 15, "high": 45},
+  "critical_forces_high": true,
+  "name_similarity": 0.88,
+  "expiry_warning_days": 180,
+  "actions": {"LOW": "proceed", "MEDIUM": "refer", "HIGH": "secondary_inspection"}
+}

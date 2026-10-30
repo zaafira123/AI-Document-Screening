@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Border Document Screening - Primary Inspection Line</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+
+<div id="login" hidden>
+  <form class="login-box" id="loginForm" autocomplete="off">
+    <h1>BORDER DOCUMENT SCREENING</h1>
+    <div class="sub">Republic of Utopia - Border Control Service. Primary Inspection Line. Authorised Personnel Only.</div>
+    <label class="field"><span>Officer ID</span><input id="lid" required autofocus placeholder="e.g. OFC-1042"></label>
+    <label class="field"><span>PIN</span><input id="lpin" type="password" required></label>
+    <div class="err" id="lerr"></div>
+    <button class="btn primary" style="width:100%;padding:8px">Sign in</button>
+    <div class="station-hint"><b>Duty Station Accounts</b><br>Officer: OFC-1042 / PIN 1234<br>Supervisor: SUP-2001 / PIN 2468</div>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="top">
+    <div class="brand">BORDER DOCUMENT SCREENING<small>Primary Inspection Line &bull; Automated Document Verification System</small></div>
+    <div class="grow"></div>
+    <div class="kv"><b>Checkpoint</b><span id="hCheck">-</span></div>
+    <div class="kv"><b>Booth</b><span id="hBooth">-</span></div>
+    <div class="kv"><b>Officer</b><span id="hUser">-</span></div>
+    <div class="kv"><b>Local time</b><span id="hClock">-</span></div>
+    <button id="btnLogout">Sign out</button>
+  </header>
+  <nav class="tabs" id="tabs">
+    <a data-p="screen" class="on">Screening</a>
+    <a data-p="cases">Case queue</a>
+    <a data-p="audit">Audit log</a>
+    <a data-p="analytics">Analytics</a>
+  </nav>
+  <main>
+    <!-- SCREENING -->
+    <section class="page" id="page-screen" style="overflow:hidden">
+      <div class="screen">
+        <div id="colIntake">
+          <div class="panel">
+            <div class="ph"><h3>Travel documents</h3></div>
+            <div class="pb">
+              <div class="drop" id="drop">
+                Scan or drop travel document images here<br>
+                <button class="btn sm" id="btnFiles" style="margin-top:6px">Select / Scan document</button>
+                <input type="file" id="fileIn" accept="image/*" multiple hidden>
+              </div>
+              <ul class="staged" id="staged"></ul>
+              <div class="hint" style="margin-top:8px">Supported documents: Passports (ICAO 9303 TD3), Visas (TD1/MRV), National ID cards (TD1/TD2), Driving licenses, Entry/residence permits.</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h3>Live passenger capture</h3></div>
+            <div class="pb">
+              <video id="cam" class="live-prev" autoplay playsinline muted hidden></video>
+              <img id="livePrev" class="live-prev" hidden alt="live capture">
+              <div class="row wrap" style="margin-top:6px">
+                <button class="btn sm" id="btnCam">Start camera</button>
+                <button class="btn sm" id="btnSnap" hidden>Capture</button>
+                <button class="btn sm" id="btnLiveUp">Upload photo</button>
+                <button class="linkbtn" id="btnLiveClear" hidden>Remove</button>
+                <input type="file" id="liveIn" accept="image/*" hidden>
+              </div>
+              <div class="hint" id="liveNote">No live image. Face verification will be skipped.</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h3>Screening context</h3></div>
+            <div class="pb">
+              <label class="field"><span>Reference date</span><input type="date" id="refDate"></label>
+              <div class="hint" style="margin:-4px 0 0">Dates are evaluated against this duty date.</div>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn primary" id="btnScreen" style="flex:1;padding:9px">Screen documents</button>
+            <button class="btn" id="btnClear">Clear</button>
+          </div>
+          <div id="progress" hidden><div class="bar"><i></i></div><div class="steps" id="progTxt"></div></div>
+          <div class="err" id="screenErr"></div>
+        </div>
+
+        <div id="colViewer">
+          <div class="panel" style="height:100%;margin:0;display:flex;flex-direction:column">
+            <div class="ph">
+              <h3>Document viewer</h3>
+              <div class="dtabs" id="dtabs"></div>
+              <div class="grow"></div>
+              <div class="tools" id="tools" hidden>
+                <label><input type="checkbox" id="tFind" checked> Findings</label>
+                <label><input type="checkbox" id="tMrz"> MRZ zone</label>
+                <label><input type="checkbox" id="tFld"> Fields</label>
+                <label><input type="checkbox" id="tStamp" checked> Stamps / photo</label>
+                <label><input type="checkbox" id="tEla"> Forensic view (ELA)</label>
+                <span><button class="btn sm" id="zOut">-</button> <button class="btn sm" id="zIn">+</button></span>
+              </div>
+            </div>
+            <div style="flex:1;overflow:auto;min-height:0" id="viewerBody">
+              <div class="empty">No document loaded.<br>Scan or upload travel documents, then press <b>Screen documents</b>.</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="colResult"><div class="panel"><div class="empty">The risk assessment appears here after screening.</div></div></div>
+      </div>
+    </section>
+
+    <!-- CASE QUEUE -->
+    <section class="page" id="page-cases" hidden>
+      <div class="filters">
+        <label class="field"><span>Search</span><input id="cSearch" placeholder="case, traveller, officer"></label>
+        <label class="field"><span>Risk</span><select id="cLevel"><option value="">All</option><option>LOW</option><option>MEDIUM</option><option>HIGH</option></select></label>
+        <label class="field"><span>Decision</span><select id="cDec"><option value="">All</option><option value="pending">Pending</option><option value="clear">Clear</option><option value="secondary">Secondary inspection</option><option value="reject">Reject</option></select></label>
+        <button class="btn" id="cRefresh">Refresh</button>
+      </div>
+      <table class="tbl"><thead><tr><th>Case</th><th>Time</th><th>Traveller</th><th>Documents</th><th>Risk</th><th>Score</th><th>System recommends</th><th>Officer decision</th><th>Screened by</th><th>Time (s)</th></tr></thead><tbody id="cBody"></tbody></table>
+    </section>
+
+    <!-- AUDIT LOG -->
+    <section class="page" id="page-audit" hidden>
+      <div id="auditBanner"></div>
+      <div class="row" style="margin-bottom:8px">
+        <button class="btn primary" id="aVerify">Verify integrity</button>
+        <button class="btn" id="aRefresh">Refresh</button>
+      </div>
+      <table class="tbl"><thead><tr><th>#</th><th>Time</th><th>Actor</th><th>Role</th><th>Action</th><th>Case</th><th>Details</th><th>Previous hash</th><th>Hash</th></tr></thead><tbody id="aBody"></tbody></table>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="page" id="page-analytics" hidden><div id="anBody"></div></section>
+  </main>
+  <footer class="status" id="statusbar"></footer>
+</div>
+
+<script src="/static/js/app.js"></script>
+<script src="/static/js/pages.js"></script>
+</body>
+</html>

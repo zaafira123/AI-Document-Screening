@@ -1,0 +1,11 @@
+flask
+numpy
+opencv-python
+pillow
+scikit-image
+reportlab
+rapidocr-onnxruntime
+matplotlib
+# optional, much better face matching (large install):
+# deepface
+# tf-keras
